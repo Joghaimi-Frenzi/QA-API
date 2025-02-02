@@ -30,6 +30,7 @@ namespace API.Controllers
         [HttpDelete]
         public IActionResult DeletePlayer()
         {
+            _playersService.DeleteAllPlayers();
             return Ok("Player deleted");
         }
     }
