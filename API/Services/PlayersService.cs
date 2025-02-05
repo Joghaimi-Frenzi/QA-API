@@ -13,6 +13,9 @@ namespace API.Services
         }
         public Players AddPlayers(Players player)
         {
+            var players = _context.Players.Where(e => e.Name == player.Name).FirstOrDefault();
+            if (players != null)
+                return null;
             _context.Players.Add(player);
             _context.SaveChangesAsync();
             return player;

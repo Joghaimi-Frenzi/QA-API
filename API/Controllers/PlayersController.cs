@@ -24,9 +24,11 @@ namespace API.Controllers
         public IActionResult AddPlayer(Players player)
         {
             var result = _playersService.AddPlayers(player);
+            if (result == null)
+                return Unauthorized();
             return Ok(player);
         }
-       
+
         [HttpDelete]
         public IActionResult DeletePlayer()
         {
