@@ -11,5 +11,6 @@ namespace API.Models
         public string Name { get; set; }
         public string Answers { get; set; }
         public bool isCorrect { get; set; }
+        public DateTime DateTime { get; set; }
     }
 }
