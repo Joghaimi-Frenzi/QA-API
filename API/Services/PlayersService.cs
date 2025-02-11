@@ -21,6 +21,26 @@ namespace API.Services
             return player;
         }
 
+        public int correctPlaersCount()
+        {
+            var query = _context.Players.Where(p => p.isCorrect); // Filter players with IsCorrect = true
+
+            return query.Count(); // Get total count before pagination
+        }
+        public PlayersWithPagination CorrectAnswerdPlayer(int pageNumber, int pageSize)
+        {
+            var count = _context.Players.Where(p => p.isCorrect).Count();
+            var result = _context.Players
+                .Where(p => p.isCorrect) // Filter by IsCorrect = true
+                .OrderBy(p => p.DateTime) // Sort by oldest date first
+                .Skip((pageNumber - 1) * pageSize) // Skip based on the page number
+                .Take(pageSize) // Take only the requested number of records
+                .ToList();
+
+
+            return new PlayersWithPagination { players = result, total = count };
+        }
+
         public bool DeleteAllPlayers()
         {
             var players = _context.Players.ToList();
@@ -32,6 +52,36 @@ namespace API.Services
         {
             var players = _context.Players.ToList();
             return players;
+        }
+
+        public List<Players> GetTopTenPlayers()
+        {
+            return _context.Players
+                .Where(p => p.isCorrect) // Filter players where IsCorrect is true
+                .OrderBy(p => p.DateTime) // Order by DateTime (oldest first)
+                .Take(10) // Get the top 10 results
+                .ToList();
+        }
+
+        public PlayersWithPagination InCorrectAnswerdPlayer(int pageNumber, int pageSize)
+        {
+            var count = _context.Players.Where(p => p.isCorrect == false).Count();
+            var result = _context.Players
+                .Where(p => p.isCorrect == false) // Filter by IsCorrect = true
+                .OrderBy(p => p.DateTime) // Sort by oldest date first
+                .Skip((pageNumber - 1) * pageSize) // Skip based on the page number
+                .Take(pageSize) // Take only the requested number of records
+                .ToList();
+
+
+            return new PlayersWithPagination { players = result, total = count };
+        }
+
+        public int IncorrectPlaersCount()
+        {
+            var query = _context.Players.Where(p => p.isCorrect == false); // Filter players with IsCorrect = true
+
+            return query.Count(); // Get total count before pagination
         }
     }
 }

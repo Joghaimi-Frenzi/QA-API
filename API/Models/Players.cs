@@ -13,4 +13,9 @@ namespace API.Models
         public bool isCorrect { get; set; }
         public DateTime DateTime { get; set; }
     }
+    public class PlayersWithPagination { 
+    
+        public List<Players> players { get; set; }
+        public int total { get; set; }
+    }
 }

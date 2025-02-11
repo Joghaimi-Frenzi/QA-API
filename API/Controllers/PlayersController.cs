@@ -20,6 +20,31 @@ namespace API.Controllers
             var result = _playersService.GetPlayers();
             return Ok(result);
         }
+        [HttpGet("CorrectAnswerdCount")]
+        public IActionResult CorrectAnswerdCount()
+        {
+            var result = _playersService.correctPlaersCount();
+            return Ok(result);
+        }
+        [HttpGet("InCorrectAnswerdCount")]
+        public IActionResult InCorrectAnswerdCount()
+        {
+            var result = _playersService.IncorrectPlaersCount();
+            return Ok(result);
+        }
+        [HttpGet("CorrectAnswerdPlayer")]
+        public IActionResult CorrectAnswerdPlayer([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        {
+            var result = _playersService.CorrectAnswerdPlayer(pageNumber, pageSize);
+            return Ok(result);
+        }
+        [HttpGet("InCorrectAnswerdPlayer")]
+        public IActionResult InCorrectAnswerdPlayer([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        {
+            var result = _playersService.InCorrectAnswerdPlayer(pageNumber, pageSize);
+            return Ok(result);
+        }
+
         [HttpPost]
         public IActionResult AddPlayer(Players player)
         {
@@ -27,6 +52,12 @@ namespace API.Controllers
             if (result == null)
                 return Unauthorized();
             return Ok(player);
+        }
+        [HttpGet("TopTen")]
+        public IActionResult GetTopTenPlayer()
+        {
+            var result = _playersService.GetTopTenPlayers();
+            return Ok(result);
         }
 
         [HttpDelete]
