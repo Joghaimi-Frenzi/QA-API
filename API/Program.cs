@@ -37,11 +37,11 @@ var app = builder.Build();
 
 // TO DO Before Release
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//if (app.Environment.IsDevelopment())
+//{
+//    app.UseSwagger();
+//    app.UseSwaggerUI();
+//}
 
 app.UseCors("AllowAllOrigins");
 app.UseAuthorization();
