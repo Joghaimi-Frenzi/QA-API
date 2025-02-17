@@ -33,6 +33,9 @@ builder.Services.AddDbContext<DbContext, AppDbContext>(options =>
 
 var app = builder.Build();
 
+
+
+// TO DO Before Release
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

@@ -21,27 +21,27 @@ namespace API.Controllers
             return Ok(result);
         }
         [HttpGet("CorrectAnswerdCount")]
-        public IActionResult CorrectAnswerdCount()
+        public IActionResult CorrectAnswerdCount([FromQuery] bool insider)
         {
-            var result = _playersService.correctPlaersCount();
+            var result = _playersService.correctPlaersCount(insider);
             return Ok(result);
         }
         [HttpGet("InCorrectAnswerdCount")]
-        public IActionResult InCorrectAnswerdCount()
+        public IActionResult InCorrectAnswerdCount([FromQuery] bool insider=false)
         {
-            var result = _playersService.IncorrectPlaersCount();
+            var result = _playersService.IncorrectPlaersCount(insider);
             return Ok(result);
         }
         [HttpGet("CorrectAnswerdPlayer")]
-        public IActionResult CorrectAnswerdPlayer([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public IActionResult CorrectAnswerdPlayer([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, [FromQuery] bool insider = false)
         {
-            var result = _playersService.CorrectAnswerdPlayer(pageNumber, pageSize);
+            var result = _playersService.CorrectAnswerdPlayer(pageNumber, pageSize,insider);
             return Ok(result);
         }
         [HttpGet("InCorrectAnswerdPlayer")]
-        public IActionResult InCorrectAnswerdPlayer([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public IActionResult InCorrectAnswerdPlayer([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, [FromQuery] bool insider = false)
         {
-            var result = _playersService.InCorrectAnswerdPlayer(pageNumber, pageSize);
+            var result = _playersService.InCorrectAnswerdPlayer(pageNumber, pageSize,insider);
             return Ok(result);
         }
 

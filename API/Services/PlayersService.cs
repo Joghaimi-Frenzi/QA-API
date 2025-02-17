@@ -21,17 +21,17 @@ namespace API.Services
             return player;
         }
 
-        public int correctPlaersCount()
+        public int correctPlaersCount(bool insider)
         {
             var query = _context.Players.Where(p => p.isCorrect); // Filter players with IsCorrect = true
 
             return query.Count(); // Get total count before pagination
         }
-        public PlayersWithPagination CorrectAnswerdPlayer(int pageNumber, int pageSize)
+        public PlayersWithPagination CorrectAnswerdPlayer(int pageNumber, int pageSize, bool insider)
         {
-            var count = _context.Players.Where(p => p.isCorrect).Count();
+            var count = _context.Players.Where(p => p.isCorrect && p.Insider == insider).Count();
             var result = _context.Players
-                .Where(p => p.isCorrect) // Filter by IsCorrect = true
+                .Where(p => p.isCorrect && p.Insider ==insider) // Filter by IsCorrect = true
                 .OrderBy(p => p.DateTime) // Sort by oldest date first
                 .Skip((pageNumber - 1) * pageSize) // Skip based on the page number
                 .Take(pageSize) // Take only the requested number of records
@@ -63,11 +63,11 @@ namespace API.Services
                 .ToList();
         }
 
-        public PlayersWithPagination InCorrectAnswerdPlayer(int pageNumber, int pageSize)
+        public PlayersWithPagination InCorrectAnswerdPlayer(int pageNumber, int pageSize, bool insider)
         {
-            var count = _context.Players.Where(p => p.isCorrect == false).Count();
+            var count = _context.Players.Where(p => p.isCorrect == false && p.Insider == insider).Count();
             var result = _context.Players
-                .Where(p => p.isCorrect == false) // Filter by IsCorrect = true
+                .Where(p => p.isCorrect == false && p.Insider == insider) // Filter by IsCorrect = true
                 .OrderBy(p => p.DateTime) // Sort by oldest date first
                 .Skip((pageNumber - 1) * pageSize) // Skip based on the page number
                 .Take(pageSize) // Take only the requested number of records
@@ -77,9 +77,9 @@ namespace API.Services
             return new PlayersWithPagination { players = result, total = count };
         }
 
-        public int IncorrectPlaersCount()
+        public int IncorrectPlaersCount(bool insider)
         {
-            var query = _context.Players.Where(p => p.isCorrect == false); // Filter players with IsCorrect = true
+            var query = _context.Players.Where(p => p.isCorrect == false && p.Insider == insider); // Filter players with IsCorrect = true
 
             return query.Count(); // Get total count before pagination
         }

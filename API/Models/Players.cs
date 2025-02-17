@@ -10,7 +10,9 @@ namespace API.Models
         public int Id { get; set; }
         public string Name { get; set; }
         public string Answers { get; set; }
+        public string Section { get; set; }
         public bool isCorrect { get; set; }
+        public bool Insider { get; set; }
         public DateTime DateTime { get; set; }
     }
     public class PlayersWithPagination { 
